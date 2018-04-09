@@ -19,8 +19,8 @@ import java.util.Set;
  *
  * 5. The end() method is called.
  *
- * 6. If the Command is interrupted by another Command
- * which requires the same Subsystem, the interrupted() method will be called.
+ * 6. If the Command is interrupt by another Command
+ * which requires the same Subsystem, the interrupt() method will be called.
  * Interrupted Commands will <b>not<b/> resume running when no longer blocked.
  *
  * @author Noah Kennedy
@@ -49,23 +49,15 @@ public interface Command {
     void end();
 
     /**
-     * Called once if the command is interrupted.
+     * Called once if the command is interrupt.
      */
-    void interrupted();
-
-    /**
-     * Determines whether or not this Command is blocked
-     * by another Command and interrupts it if so.
-     * @return Whether or not another command requires any
-     * of the same Subsystems as this one.
-     */
-    boolean isBlocked();
+    void interrupt();
 
     /**
      * Fetches a Set of the requiredSubsystems.
-     * This is used to determine when a Command will need to be interrupted.
+     * This is used to determine when a Command will need to be interrupt.
      * @return A Set of all required Subsystems.
      */
-    Set<Subsystem> getRequiredSubsystems();
+    Subsystem getRequiredSubsystem();
 
 }
