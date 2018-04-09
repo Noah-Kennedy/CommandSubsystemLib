@@ -1,5 +1,8 @@
 package scheduler;
 
+/**
+ *
+ */
 public interface Task {
     void init();
     void execute();
