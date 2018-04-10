@@ -8,7 +8,7 @@ package scheduler;
  */
 public class AbstractSubsystem implements Subsystem {
 
-    private Command defaultCommand;
+    private final Command defaultCommand;
     private Command currentCommand;
 
     /**

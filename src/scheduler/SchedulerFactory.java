@@ -1,8 +1,6 @@
 package scheduler;
 
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.TreeSet;
 
 /**
  * Factory class for producing different schedulers.
@@ -15,7 +13,7 @@ public class SchedulerFactory {
     /**
      * Factory method for generating a HashSetScheduler.
      * Subsystems are held in a HashSet.
-     * @return
+     * @return A CollectionScheduler using a HashSet.
      */
     public static Scheduler getHashSetScheduler() {
         return new CollectionScheduler(new HashSet<>());

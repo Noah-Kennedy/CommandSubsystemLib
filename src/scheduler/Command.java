@@ -1,7 +1,5 @@
 package scheduler;
 
-import java.util.Set;
-
 /**
  * A Command is a model of a task to be run by a scheduler.
  * Commands work with Subsystems to form a model of the project.
