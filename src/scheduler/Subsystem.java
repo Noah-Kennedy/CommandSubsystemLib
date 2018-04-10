@@ -10,7 +10,7 @@ package scheduler;
  * Each Subsystem can have up to one Command to run at a time
  * and up to one default Command to run when no command is Scheduled.
  */
-public interface Subsystem {
+interface Subsystem {
 
     /**
      * Runs the current scheduled Command.
@@ -25,4 +25,12 @@ public interface Subsystem {
      * @param command The new command to be run.
      */
     void setNewCommandToRun(Command command);
+
+    /**
+     * Initializes the default Command.
+     * Due not call this unless you are expanding the library.
+     * @param defaultCommand The default Command to be run by
+     *                       the Scheduler when no Command is present.
+     */
+    void initDefaultCommand(Command defaultCommand);
 }

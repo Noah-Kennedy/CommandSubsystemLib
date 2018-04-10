@@ -8,20 +8,8 @@ package scheduler;
  */
 public class AbstractSubsystem implements Subsystem {
 
-    private final Command defaultCommand;
+    private Command defaultCommand;
     private Command currentCommand;
-
-    /**
-     * Constructs a Subsystem with a default Command.
-     * @param defaultCommand The default Command for the Subsystem.
-     */
-    public AbstractSubsystem(Command defaultCommand) {
-
-        this.currentCommand = null;
-        this.defaultCommand = defaultCommand;
-        defaultCommand.init();
-
-    }
 
     /**
      * Constructs a Subsystem without a default Command.
@@ -33,6 +21,10 @@ public class AbstractSubsystem implements Subsystem {
 
     }
 
+    /**
+     * Runs the current scheduled Command.
+     * If no Command is scheduled, this will run the default Command.
+     */
     @Override
     public synchronized void runCommand() {
 
@@ -67,16 +59,40 @@ public class AbstractSubsystem implements Subsystem {
         }
     }
 
-
+    /**
+     * Sets a new command to be run.
+     * This method will interrupt and deschedule the current command.
+     * @param command The new command to be run.
+     */
     @Override
     public synchronized void setNewCommandToRun(Command command) {
 
-        this.currentCommand.interrupt();
+        if(this.currentCommand != null) {
+            this.currentCommand.interrupt();
+        }
 
         this.currentCommand = command;
 
         this.currentCommand.init();
 
+    }
+
+    /**
+     * Initializes the default Command.
+     * Due not call this unless you are expanding the library.
+     *
+     * @param defaultCommand The default Command to be run by
+     *                       the Scheduler when no Command is present.
+     */
+    @Override
+    public void initDefaultCommand(Command defaultCommand) {
+
+        /*if(defaultCommand != null) {
+            throw new IllegalStateException(
+                    "You cannot change the default command once it has been set!");
+        }*/
+
+        this.defaultCommand = defaultCommand;
     }
 
 }

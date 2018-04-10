@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class CollectionScheduler extends Scheduler {
 
     private final Collection<Subsystem> subsystems;
-    private AtomicBoolean shouldRun;
+    private final AtomicBoolean shouldRun;
 
     /**
      * Creates a new CollectionScheduler using
@@ -18,6 +18,7 @@ public class CollectionScheduler extends Scheduler {
      */
     public CollectionScheduler(Collection<Subsystem> subsystems) {
         this.subsystems = subsystems;
+        this.shouldRun = new AtomicBoolean();
     }
 
 
