@@ -2,29 +2,48 @@ package test;
 
 import scheduler.Scheduler;
 import scheduler.SchedulerFactory;
-import test.Commands.Decrementor;
-import test.Commands.IncrementForEver;
-import test.Subsystems.Incrementer;
 
 public class Main {
 
-    public static final Incrementer incrementer = new Incrementer();
-
     public static void main(String[] args) {
-        Scheduler scheduler = SchedulerFactory.getHashSetScheduler();
-        scheduler.addSubsystem(incrementer);
+
+        Scheduler scheduler;
+        Incrementer advancedIncrementor;
+
+        scheduler = SchedulerFactory.getParallelHashSetScheduler();
+        advancedIncrementor = new Incrementer();
+
+        advancedIncrementor
+                .initDefaultCommand(advancedIncrementor.getPrintCommand());
+        scheduler.addSubsystem(advancedIncrementor);
 
         scheduler.start();
-        incrementer.setNewCommandToRun(new IncrementForEver());
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        incrementer.setNewCommandToRun(new Decrementor());
+        advancedIncrementor
+                .setNewCommandToRun(advancedIncrementor.getIncrementerCommand());
 
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        advancedIncrementor
+                .setNewCommandToRun(advancedIncrementor.getDecrementerCommand());
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        scheduler.stopScheduler();
     }
 
 }
