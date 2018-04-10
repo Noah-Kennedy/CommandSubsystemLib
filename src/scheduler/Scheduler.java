@@ -11,7 +11,7 @@ public abstract class Scheduler extends Thread {
 
     /**
      * Runs the scheduler in the current thread.
-     *
+     * <p>
      * The usage of this method should
      * be avoided in favor of .start(),
      * which runs the Scheduler in a new Thread.
@@ -20,6 +20,7 @@ public abstract class Scheduler extends Thread {
 
     /**
      * Adds a Subsystem to the Scheduler.
+     *
      * @param subsystem The Subsystem to be added.
      */
     public abstract void addSubsystem(Subsystem subsystem);

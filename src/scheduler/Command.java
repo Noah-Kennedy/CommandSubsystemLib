@@ -3,22 +3,22 @@ package scheduler;
 /**
  * A Command is a model of a task to be run by a scheduler.
  * Commands work with Subsystems to form a model of the project.
- *
+ * <p>
  * The lifecycle of a Command is as follows:
- *
+ * <p>
  * 1. The Command is instantiated.
- *
+ * <p>
  * 2. The Command is added to a Scheduler.
- *
+ * <p>
  * 3. The Scheduler calls the init() method.
- *
+ * <p>
  * 4. The Scheduler runs the execute() method repeatedly
  * until the isFinished() method returns true.
- *
+ * <p>
  * 5. The end() method is called.
- *
- * 6. If the Command is interrupt by another Command
- * which requires the same Subsystem, the interrupt() method will be called.
+ * <p>
+ * 6. If the Command is onInterrupt by another Command
+ * which requires the same Subsystem, the onInterrupt() method will be called.
  * Interrupted Commands will <b>not<b/> resume running when no longer blocked.
  *
  * @author Noah Kennedy
@@ -37,6 +37,7 @@ public interface Command {
 
     /**
      * When this returns true, the Scheduler will deschedule the Command.
+     *
      * @return Whether or not the Command should be descheduled.
      */
     boolean isFinished();
@@ -47,7 +48,7 @@ public interface Command {
     void end();
 
     /**
-     * Called once if the command is interrupt.
+     * Called once if the command is onInterrupt.
      */
-    void interrupt();
+    void onInterrupt();
 }

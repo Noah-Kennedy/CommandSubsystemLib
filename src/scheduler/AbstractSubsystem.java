@@ -61,14 +61,15 @@ public class AbstractSubsystem implements Subsystem {
 
     /**
      * Sets a new command to be run.
-     * This method will interrupt and deschedule the current command.
+     * This method will onInterrupt and deschedule the current command.
+     *
      * @param command The new command to be run.
      */
     @Override
     public synchronized void setNewCommandToRun(Command command) {
 
-        if(this.currentCommand != null) {
-            this.currentCommand.interrupt();
+        if (this.currentCommand != null) {
+            this.currentCommand.onInterrupt();
         }
 
         this.currentCommand = command;

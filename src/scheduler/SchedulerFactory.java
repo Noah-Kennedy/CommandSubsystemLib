@@ -13,6 +13,7 @@ public class SchedulerFactory {
     /**
      * Factory method for generating a HashSetScheduler.
      * Subsystems are held in a HashSet.
+     *
      * @return A CollectionScheduler using a HashSet.
      */
     public static Scheduler getHashSetScheduler() {

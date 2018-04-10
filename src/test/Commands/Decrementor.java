@@ -46,10 +46,10 @@ public class Decrementor implements Command {
     }
 
     /**
-     * Called once if the command is interrupt.
+     * Called once if the command is onInterrupt.
      */
     @Override
-    public void interrupt() {
+    public void onInterrupt() {
 
         System.out.println("The value of the counter when we were interrupted was "
                 + Main.incrementer.getCounter());
