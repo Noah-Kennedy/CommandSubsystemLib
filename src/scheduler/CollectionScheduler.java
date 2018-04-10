@@ -1,12 +1,12 @@
 package scheduler;
 
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CollectionScheduler extends Scheduler {
 
-    private Collection<Command> commands;
     private Collection<Subsystem> subsystems;
-    private boolean shouldRun;
+    private AtomicBoolean shouldRun;
 
     /**
      * Creates a new CollectionScheduler using
@@ -14,32 +14,40 @@ public class CollectionScheduler extends Scheduler {
      * Do not use this constructor unless expanding the library.
      * Instead, make of of the SchedulerFactory class.
      *
-     * @param commands   The empty Collection to be used for Commands.
      * @param subsystems The empty Collection to be used for Subsystems.
      */
-    public CollectionScheduler(Collection<Command> commands, Collection<Subsystem> subsystems) {
-        this.commands = commands;
+    public CollectionScheduler(Collection<Subsystem> subsystems) {
         this.subsystems = subsystems;
     }
 
+
     /**
-     * Do not use. Use .start() instead.
+     * Runs the scheduler in the current thread.
+     * <p>
+     * The usage of this method should
+     * be avoided in favor of .start(),
+     * which runs the Scheduler in a new Thread.
      */
     @Override
-    public void run() {
+    public synchronized void run() {
 
-        while (shouldRun) {
-            runCycle();
+        shouldRun.set(true);
+
+        while (shouldRun.get()) {
+            subsystems.forEach(Subsystem::runCommand);
         }
 
     }
 
-    private synchronized void runCycle() {
+    /**
+     * Adds a Subsystem to the Scheduler.
+     *
+     * @param subsystem The Subsystem to be added.
+     */
+    @Override
+    public void addSubsystem(Subsystem subsystem) {
 
-        subsystems
-                .stream()
-                .map(Subsystem::getCurrentCommand)
-                .forEach();
+        subsystems.add(subsystem);
 
     }
 
@@ -47,72 +55,9 @@ public class CollectionScheduler extends Scheduler {
      * Stops the Scheduler.
      */
     @Override
-    public synchronized void stopScheduler() {
-        shouldRun = false;
-    }
+    public void stopScheduler() {
 
-    /**
-     * Starts the Scheduler in a new Thread.
-     */
-    @Override
-    public void start() {
-
-        shouldRun = true;
-        super.start();
-
-    }
-
-
-    /**
-     * Schedules a new command.
-     * This method is less efficient than
-     * the addCommand(Command) method, but it is safe to
-     * use when the Scheduler is running.
-     *
-     * @param command The Command to be scheduled.
-     */
-    @Override
-    public synchronized void schedule(Command command) {
-
-        command
-                .getRequiredSubsystem()
-                .getCurrentCommand()
-                .interrupt();
-
-        command
-                .getRequiredSubsystem()
-                .setCurrentCommand(command);
-
-        command.init();
-
-    }
-
-    /**
-     * Adds a Subsystem to the Scheduler.
-     *
-     * @param subsystem The Subsystem to add.
-     */
-    @Override
-    public void addSubsystem(Subsystem subsystem) {
-        subsystems.add(subsystem);
-    }
-
-    /**
-     * Adds a new Command.
-     * This is much more efficient than the schedule method,
-     * but it cannot be called while the Scheduler is running.
-     *
-     * @param command The Command to be added.
-     */
-    @Override
-    public void addCommand(Command command) {
-
-        if (this.isAlive()) {
-            throw new IllegalStateException(
-                    "You cannot call this method while the command is running!");
-        }
-
-        commands.add(command);
+        shouldRun.set(false);
 
     }
 

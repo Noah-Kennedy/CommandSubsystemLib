@@ -52,12 +52,4 @@ public interface Command {
      * Called once if the command is interrupt.
      */
     void interrupt();
-
-    /**
-     * Fetches a Set of the requiredSubsystems.
-     * This is used to determine when a Command will need to be interrupt.
-     * @return A Set of all required Subsystems.
-     */
-    Subsystem getRequiredSubsystem();
-
 }

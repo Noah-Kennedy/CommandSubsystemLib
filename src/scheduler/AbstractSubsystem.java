@@ -12,49 +12,71 @@ public class AbstractSubsystem implements Subsystem {
     private Command currentCommand;
 
     /**
-     * Initializes the default command.
-     * This method can be left blank depending on the implementation.
-     * If the default command doesn't exist it should be null.
-     *
-     * @param defaultCommand The default command.
+     * Constructs a Subsystem with a default Command.
+     * @param defaultCommand The default Command for the Subsystem.
      */
-    @Override
-    public void setDefaultCommand(Command defaultCommand) {
+    public AbstractSubsystem(Command defaultCommand) {
 
+        this.currentCommand = null;
         this.defaultCommand = defaultCommand;
+        defaultCommand.init();
 
     }
 
     /**
-     * Returns the default Command to be run if there is no other Command.
-     * If there is no default command then this should return null.
-     *
-     * @return The default command, if any.
+     * Constructs a Subsystem without a default Command.
      */
-    @Override
-    public Command getDefaultCommand() {
-        return defaultCommand;
+    public AbstractSubsystem() {
+
+        this.currentCommand = null;
+        this.defaultCommand = null;
+
     }
 
-    /**
-     * Returns the command which should currently be running.
-     *
-     * @return The current command.
-     */
     @Override
-    public Command getCurrentCommand() {
-        return currentCommand;
+    public synchronized void runCommand() {
+
+        if (currentCommand != null) {
+
+            if (!currentCommand.isFinished()) {
+
+                currentCommand.execute();
+
+            } else {
+
+                currentCommand.end();
+
+                currentCommand = null;
+
+                if (defaultCommand != null) {
+
+                    defaultCommand.init();
+
+                }
+
+            }
+
+        } else {
+
+            if (defaultCommand != null) {
+
+                defaultCommand.execute();
+
+            }
+
+        }
     }
 
-    /**
-     * Sets a new command to be run.
-     * This method will interrupt and deschedule the current command.
-     *
-     * @param command The new command to be run.
-     */
+
     @Override
-    public void setCurrentCommand(Command command) {
+    public synchronized void setNewCommandToRun(Command command) {
+
+        this.currentCommand.interrupt();
+
         this.currentCommand = command;
+
+        this.currentCommand.init();
+
     }
 
 }
