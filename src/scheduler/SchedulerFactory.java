@@ -21,8 +21,11 @@ public class SchedulerFactory {
     }
 
     /**
+     * Factory method for generating a ParallelHashSetScheduler.
+     * Subsystems will be held in a HashSet.
+     * The Scheduler will parallelize the work of running Commands using parallel streams.
      *
-     * @return
+     * @return A ParallelCollectionSchedule using a HashSet.
      */
     public static Scheduler getParallelHashSetScheduler() {
         return new ParallelCollectionScheduler(new HashSet<>());

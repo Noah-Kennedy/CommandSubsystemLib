@@ -20,7 +20,7 @@ public class CommandFactory {
      * @param end         Called once after the command is descheduled.
      * @param onInterrupt Called once if the command is onInterrupt.
      * @param isFinished  When this returns true, the Scheduler will deschedule the Command.
-     * @return
+     * @return A Command generated from the provided components.
      */
     public static Command generateCommand(Runnable init, Runnable execute,
                                           Runnable end, Runnable onInterrupt,

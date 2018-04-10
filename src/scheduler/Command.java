@@ -19,7 +19,7 @@ package scheduler;
  * <p>
  * 6. If the Command is onInterrupt by another Command
  * which requires the same Subsystem, the onInterrupt() method will be called.
- * Interrupted Commands will <b>not<b/> resume running when no longer blocked.
+ * Interrupted Commands will <b>not</b> resume running when no longer blocked.
  *
  * @author Noah Kennedy
  */
