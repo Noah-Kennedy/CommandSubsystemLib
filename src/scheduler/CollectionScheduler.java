@@ -5,8 +5,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CollectionScheduler extends Scheduler {
 
-    private final Collection<Subsystem> subsystems;
-    private final AtomicBoolean shouldRun;
+    protected final Collection<Subsystem> subsystems;
+    protected final AtomicBoolean shouldRun;
 
     /**
      * Creates a new CollectionScheduler using

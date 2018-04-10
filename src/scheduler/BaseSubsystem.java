@@ -6,7 +6,7 @@ package scheduler;
  *
  * @author Noah Kennedy
  */
-public class AbstractSubsystem implements Subsystem {
+public class BaseSubsystem implements Subsystem {
 
     private Command defaultCommand;
     private Command currentCommand;
@@ -14,7 +14,7 @@ public class AbstractSubsystem implements Subsystem {
     /**
      * Constructs a Subsystem without a default Command.
      */
-    public AbstractSubsystem() {
+    public BaseSubsystem() {
 
         this.currentCommand = null;
         this.defaultCommand = null;

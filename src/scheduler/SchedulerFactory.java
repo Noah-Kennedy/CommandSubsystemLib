@@ -20,4 +20,12 @@ public class SchedulerFactory {
         return new CollectionScheduler(new HashSet<>());
     }
 
+    /**
+     *
+     * @return
+     */
+    public static Scheduler getParallelHashSetScheduler() {
+        return new ParallelCollectionScheduler(new HashSet<>());
+    }
+
 }

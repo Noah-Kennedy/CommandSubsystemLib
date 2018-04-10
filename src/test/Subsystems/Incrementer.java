@@ -1,10 +1,10 @@
 package test.Subsystems;
 
-import scheduler.AbstractSubsystem;
+import scheduler.BaseSubsystem;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Incrementer extends AbstractSubsystem {
+public class Incrementer extends BaseSubsystem {
 
     private final AtomicInteger counter = new AtomicInteger();
 
