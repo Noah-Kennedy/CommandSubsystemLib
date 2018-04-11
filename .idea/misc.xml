@@ -3,6 +3,10 @@
   <component name="ClojureProjectResolveSettings">
     <currentScheme>IDE</currentScheme>
   </component>
+  <component name="EntryPointsManager">
+    <pattern value="scheduler.SchedulerFactory" method="getHashSetScheduler" />
+    <pattern value="scheduler.Scheduler" method="run" />
+  </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Desktop/SchedulerAPI" />
     <option name="OPTION_SCOPE" value="private" />

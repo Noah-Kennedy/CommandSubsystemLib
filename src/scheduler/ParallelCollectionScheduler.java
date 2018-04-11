@@ -12,7 +12,7 @@ public class ParallelCollectionScheduler extends CollectionScheduler {
      *
      * @param subsystems The empty Collection to be used for Subsystems.
      */
-    public ParallelCollectionScheduler(Collection<Subsystem> subsystems) {
+    ParallelCollectionScheduler(Collection<Subsystem> subsystems) {
         super(subsystems);
     }
 
