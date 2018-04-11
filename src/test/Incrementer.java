@@ -23,7 +23,7 @@ public class Incrementer extends BaseSubsystem {
                         + counter),
                 () -> System.out.println("The value of the counter when we were interrupted was "
                         + counter),
-                () -> counter.get() > 1000);
+                () -> counter.get() >= 1000);
     }
 
     public Command getPrintCommand() {
@@ -43,7 +43,7 @@ public class Incrementer extends BaseSubsystem {
                         + counter),
                 () -> System.out.println("The value of the counter when we were interrupted was "
                         + counter),
-                () -> counter.get() < 100);
+                () -> counter.get() <= 100);
     }
 
 }

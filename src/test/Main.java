@@ -15,6 +15,7 @@ public class Main {
 
         advancedIncrementor
                 .initDefaultCommand(advancedIncrementor.getPrintCommand());
+
         scheduler.addSubsystem(advancedIncrementor);
 
         scheduler.start();
